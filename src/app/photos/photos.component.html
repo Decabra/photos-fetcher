@@ -1,0 +1,26 @@
+<main class="p-5">
+  <div class="buttons  is-justify-content-space-between">
+    <a class="button is-info is-outlined" [routerLink]="['/album']">Go Back</a>
+    <button class="button is-link">Add Photo</button>
+  </div>
+  <h1 class="title">Photos</h1>
+  <section class="columns is-flex-wrap-wrap	is-justify-content-flex-start">
+    <div *ngFor="let jPObj of jsonPhotosData" class="column is-full" >
+      <div class="card">
+        <div class="columns card-content">
+          <div class="column is-8 is-align-self-center pl-6">
+            <div class="is-size-3	has-text-weight-medium mb-3">Title: {{jPObj.title}}</div>
+            <div class="buttons  is-justify-content-flex-start">
+              <button class="button is-link">Edit Photo</button>
+              <button class="button is-danger">Delete Photo</button>
+            </div>
+          </div>
+          <div class="column is-4">
+            <img src={{jPObj.url}} alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
