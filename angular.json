@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "todo": {
+    "photo-fetcher": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/todo",
+            "outputPath": "dist/photo-fetcher",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "todo:build"
+            "browserTarget": "photo-fetcher:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "todo:build:production"
+              "browserTarget": "photo-fetcher:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "todo:build"
+            "browserTarget": "photo-fetcher:build"
           }
         },
         "test": {
@@ -114,18 +114,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "todo:serve"
+            "devServerTarget": "photo-fetcher:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "todo:serve:production"
+              "devServerTarget": "photo-fetcher:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "todo",
+  "defaultProject": "photo-fetcher",
   "cli": {
     "analytics": "d1561cbb-9fab-4290-a3f2-ac02f465befb"
   }

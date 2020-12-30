@@ -6,6 +6,7 @@ import {ChannelService} from '../services/channel.service';
   styleUrls: ['./album.component.css']
 })
 export class AlbumComponent implements OnInit {
+
   jsonAlbumData: object[] = [];
   id: number | undefined;
 
@@ -16,10 +17,6 @@ export class AlbumComponent implements OnInit {
     this.channelService.getAlbums().subscribe( (data: any[]) => {
       this.jsonAlbumData = data;
     } );
-  }
-  showPhotos(arg: number): void {
-    this.id = arg;
-    console.log(arg);
   }
 
 }

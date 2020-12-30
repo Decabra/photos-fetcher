@@ -1,3 +1,10 @@
 .title{
   text-align: center;
 }
+.card{
+  border-radius: 10px;
+}
+.msg-hide{
+  display: none;
+}
+

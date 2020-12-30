@@ -1,19 +1,24 @@
 <main class="p-5">
   <div class="buttons  is-justify-content-space-between">
     <a class="button is-info is-outlined" [routerLink]="['/album']">Go Back</a>
-    <button class="button is-link">Add Photo</button>
+    <button class="button is-link" (click)="showModal('section.modal', 'is-active', 'Add', 'added', $event.target)">Add Photo</button>
   </div>
   <h1 class="title">Photos</h1>
   <section class="columns is-flex-wrap-wrap	is-justify-content-flex-start">
-    <div *ngFor="let jPObj of jsonPhotosData" class="column is-full" >
+    <div *ngFor="let jPObj of jsonPhotosData" class="column is-full">
       <div class="card">
         <div class="columns card-content">
           <div class="column is-8 is-align-self-center pl-6">
             <div class="is-size-3	has-text-weight-medium mb-3">Title: {{jPObj.title}}</div>
             <div class="buttons  is-justify-content-flex-start">
-              <button class="button is-link">Edit Photo</button>
-              <button class="button is-danger">Delete Photo</button>
+              <button id="{{jPObj.id}}" class="button is-link" (click)="showModal('section.modal', 'is-active', 'Edit', 'edited', $event.target)">Edit Photo</button>
+              <button id="{{jPObj.id}}" class="button is-danger" (click)="delPhoto($event.target)">Delete Photo</button>
             </div>
+            <article id="{{'art' + jPObj.id}}" class="purge message msg-hide is-success">
+              <div class="message-header">
+                <p>Photo deleted successfully.</p>
+              </div>
+            </article>
           </div>
           <div class="column is-4">
             <img src={{jPObj.url}} alt="">
@@ -21,5 +26,52 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="modal">
+    <div class="modal-background"></div>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit(modalTitle)" novalidate class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">{{modalTitle}} Photo</p>
+        <button type="button" class="delete" aria-label="close" (click)="cancelModal('section.modal', 'is-active')"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="field">
+          <label class="label">Title</label>
+          <div class="control">
+            <input id="title" name="title" formControlName="title" class="input" [(ngModel)]="titleInput" [ngClass]="contactForm.controls['title'].valid ? 'is-success' : ''" type="text" placeholder="Enter title">
+          </div>
+        </div>
+
+        <!--Errors-->
+        <div *ngIf="!contactForm.controls['title'].valid && (contactForm.controls['title'].dirty || contactForm.controls['title'].touched)">
+          <p [hidden]=" !contactForm.controls['title'].errors.required" class="help is-danger">Title is required</p>
+        </div>
+        <!--Errors-->
+
+        <div class="field">
+          <label class="label">URL</label>
+          <div class="control">
+            <input id="url" name="url" formControlName="url" class="input" [(ngModel)]="urlInput" [ngClass]="contactForm.controls['url'].valid ? 'is-success' : ''" type="text" placeholder="Enter URL of the photo">
+          </div>
+        </div>
+
+        <!--Errors-->
+        <p *ngIf="contactForm.controls['url'].value && contactForm.controls['url'].invalid" class="help is-danger">Please enter valid url</p>
+        <p *ngIf="(contactForm.controls['url'].dirty || contactForm.controls['url'].touched) && !contactForm.controls['url'].value" class="help is-danger">URL is required</p>
+        <!--Errors-->
+        <article class="modalMessage message msg-hide is-success">
+          <div class="message-header">
+            <p>Photo {{statusMessage}} successfully.</p>
+          </div>
+        </article>
+      </section>
+      <footer class="modal-card-foot">
+        <button type="submit" [disabled]="contactForm.invalid" value="hlo" class="button is-success">{{modalTitle}} photo</button>
+
+      </footer>
+
+    </form>
   </section>
 </main>
