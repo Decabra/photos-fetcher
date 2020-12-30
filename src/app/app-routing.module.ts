@@ -6,7 +6,7 @@ import {PhotosComponent} from './photos/photos.component';
 const routes: Routes = [
   {path: '', redirectTo: 'album', pathMatch: 'full'},
   {path: 'album', component: AlbumComponent},
-  {path: 'photos', component: PhotosComponent}
+  {path: 'photos/:id', component: PhotosComponent}
 ];
 
 @NgModule({

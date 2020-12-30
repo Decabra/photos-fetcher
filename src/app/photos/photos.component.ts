@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ChannelService} from '../services/channel.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-photos',
@@ -6,22 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./photos.component.css']
 })
 export class PhotosComponent implements OnInit {
-  private photosUrl = 'https://jsonplaceholder.typicode.com/photos';
+
   jsonPhotosData: object[] = [];
-  constructor() { }
+
+  constructor(private channelService: ChannelService, private route: ActivatedRoute ) {
+  }
 
   ngOnInit(): void {
-    fetch(this.photosUrl).then( (response) => response.json() )
-      .then( (data) => {
-          this.jsonPhotosData = data;
-          // this.jsonData.map( (obj: object) => {
-          //   this.userId = obj.id;
-          //   this.userId = obj.userId;
-          //   this.userId = obj.title;
-          // console.log(this.jsonPhotosData);
-          // } );
-        }
-      ).catch(console.log);
+    this.route.paramMap.subscribe( params => {
+      this.channelService.getPhotos().subscribe( (data: any[]) => {
+        data.map((pObj) => {
+          if (String(pObj.albumId) === params.get('id')){
+            this.jsonPhotosData.push(pObj);
+          }
+        });
+      });
+    });
   }
 
 }
